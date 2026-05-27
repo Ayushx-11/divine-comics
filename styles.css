@@ -170,30 +170,37 @@ button { font: inherit; }
   align-items: center;
   gap: 32px;
 }
-.nav__brand { display: inline-flex; align-items: center; gap: 14px; }
+.nav__brand {
+  display: inline-flex; align-items: center; gap: 14px;
+  text-decoration: none;
+}
 .nav__logo {
   display: inline-flex; align-items: center;
-  height: 36px;
+  height: 34px;
 }
 .nav__logo img {
   height: 100%; width: auto;
   display: block;
 }
-.nav__tag {
-  display: inline-flex; flex-direction: column;
-  font-family: var(--condensed);
-  font-size: 10px; letter-spacing: .25em;
-  color: rgba(255,255,255,.6);
-  text-transform: uppercase;
-  line-height: 1.2;
-  padding-left: 14px;
-  border-left: 1px solid rgba(255,255,255,.18);
+.nav__logo--mark {
+  width: 38px; height: 38px;
+  background: #000; border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08);
 }
-.nav__tag b {
-  font-weight: 600; letter-spacing: .22em;
-  color: #fff;
+.nav__logo--mark img {
+  width: 100%; height: 100%; object-fit: cover;
 }
-@media (max-width: 700px) { .nav__tag { display: none; } }
+.nav__divider {
+  width: 1px; height: 22px;
+  background: rgba(255,255,255,0.22);
+  display: inline-block;
+}
+@media (max-width: 720px) {
+  .nav__logo { height: 28px; }
+  .nav__logo--mark { width: 32px; height: 32px; }
+  .nav__brand { gap: 10px; }
+}
 .nav__links { display: flex; justify-content: center; gap: 32px; }
 .nav__links a {
   font-family: var(--condensed);
@@ -1096,69 +1103,196 @@ button { font: inherit; }
 }
 
 /* ============================================================
-   FOOTER
+   FOOTER — branded
    ============================================================ */
 .footer {
-  background: #0a0a0a; color: #fff;
-  padding-top: clamp(72px, 9vw, 120px);
+  background: #050505; color: #fff;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
+.footer::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(212,32,42,.16), transparent 70%);
+  pointer-events: none;
+}
+
+/* Brand banner — big COMICS TODAY mark + tagline */
+.footer__banner {
+  position: relative;
+  padding: clamp(72px, 10vw, 120px) var(--pad-x) clamp(48px, 6vw, 80px);
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.footer__banner-mark {
+  display: inline-flex; align-items: center;
+  height: clamp(64px, 7vw, 110px);
+  margin: 0 auto 20px;
+}
+.footer__banner-mark img {
+  height: 100%; width: auto;
+  filter: drop-shadow(0 8px 30px rgba(0,0,0,.5));
+}
+.footer__banner-tag {
+  font-family: var(--condensed);
+  font-size: 12px; letter-spacing: .35em;
+  color: rgba(255,255,255,.5);
+  text-transform: uppercase;
+  margin: 0 0 28px;
+}
+.footer__banner-line {
+  font-family: "Instrument Serif", "Georgia", serif;
+  font-style: italic; font-weight: 400;
+  font-size: clamp(22px, 2.4vw, 36px);
+  line-height: 1.3;
+  color: #fff;
+  max-width: 22ch;
+  margin: 0 auto 30px;
+}
+.footer__banner-cta {
+  display: inline-flex; gap: 12px; flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Body grid */
 .footer__grid {
+  max-width: var(--container);
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.4fr 1.4fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
   gap: clamp(32px, 5vw, 64px);
-  padding-bottom: 72px;
+  padding: clamp(56px, 7vw, 88px) var(--pad-x) clamp(48px, 6vw, 72px);
+  position: relative;
 }
-.footer__brand h3 {
-  font-family: var(--display);
-  font-size: 26px; letter-spacing: .03em; margin: 16px 0 8px; color: #fff;
-}
-.footer__brand p, .footer__col p {
-  font-size: 14px; color: rgba(255,255,255,.6); margin: 0 0 14px; line-height: 1.6;
+
+.footer__brand { position: relative; }
+.footer__brand-row {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 18px;
 }
 .footer__logo {
-  width: 56px; height: 56px; border-radius: 4px;
+  width: 48px; height: 48px; border-radius: 6px;
   overflow: hidden; background: #000;
   box-shadow: 0 0 0 1px rgba(255,255,255,.08);
 }
 .footer__logo img { width: 100%; height: 100%; object-fit: cover; }
+.footer__brand h3 {
+  font-family: var(--display);
+  font-size: 24px; letter-spacing: .03em;
+  margin: 0;
+  color: #fff;
+}
+.footer__brand h3 span { color: var(--red); margin-left: 4px; }
+.footer__brand p {
+  font-size: 14px; color: rgba(255,255,255,.6);
+  margin: 0 0 20px;
+  line-height: 1.6;
+  max-width: 28ch;
+}
+.footer__social {
+  display: flex; gap: 8px;
+  margin-top: 8px;
+}
+.footer__social a {
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  color: #fff;
+  border: 0; border: 1px solid rgba(255,255,255,.1);
+  font-family: var(--condensed);
+  font-size: 11px; letter-spacing: .15em;
+  font-weight: 600;
+  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.footer__social a:hover {
+  background: var(--red); border-color: var(--red); color: #fff;
+}
+
 .footer__col h4 {
   font-family: var(--condensed);
-  font-size: 13px; letter-spacing: .28em; font-weight: 700;
+  font-size: 12px; letter-spacing: .3em; font-weight: 700;
   color: var(--red);
-  margin: 0 0 18px;
+  margin: 0 0 22px;
   text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px;
+}
+.footer__col h4::before {
+  content: ""; width: 12px; height: 2px; background: var(--red);
+}
+.footer__col ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.footer__col li {
+  margin: 0 0 12px;
 }
 .footer__col a {
-  color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,.2);
-  transition: color .2s var(--ease), border-color .2s var(--ease);
+  font-family: var(--condensed);
+  font-size: 15px; letter-spacing: .04em;
+  color: rgba(255,255,255,.85);
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 0;
+  transition: color .2s var(--ease), transform .2s var(--ease);
 }
-.footer__col a:hover { color: var(--red); border-color: var(--red); }
+.footer__col a::after {
+  content: "→"; opacity: 0; transform: translateX(-6px);
+  transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.footer__col a:hover { color: var(--red); }
+.footer__col a:hover::after { opacity: 1; transform: translateX(0); }
+.footer__col p {
+  font-size: 14px; color: rgba(255,255,255,.6);
+  margin: 0 0 12px; line-height: 1.55;
+}
+
+.footer__support h4 { color: var(--red); }
 .footer__qr {
   background: #fff; color: #1d1d1f;
-  padding: 10px; max-width: 220px;
+  padding: 10px; max-width: 180px;
+  border-radius: 4px;
 }
-.footer__qr img { width: 100%; }
-.footer__qr p { color: #1d1d1f; font-size: 12px; margin: 10px 0 4px; }
+.footer__qr img { width: 100%; border-radius: 2px; }
+.footer__qr p {
+  color: #1d1d1f; font-size: 11px;
+  margin: 8px 0 4px;
+  font-family: var(--condensed); letter-spacing: .12em;
+}
 .footer__qr code { font-size: 11px; color: #555; }
+
 .footer__bar {
-  border-top: 1px solid rgba(255,255,255,.1);
+  border-top: 1px solid rgba(255,255,255,.08);
   padding-block: 22px;
   background: #000;
+  position: relative;
 }
 .footer__bar-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-inline: var(--pad-x);
   display: flex; justify-content: space-between; align-items: center;
   font-family: var(--condensed);
-  font-size: 11px; letter-spacing: .22em; color: rgba(255,255,255,.55);
+  font-size: 11px; letter-spacing: .22em;
+  color: rgba(255,255,255,.55);
   text-transform: uppercase;
   flex-wrap: wrap; gap: 14px;
 }
 .footer__bar nav { display: flex; gap: 24px; }
-.footer__bar a { color: rgba(255,255,255,.65); }
+.footer__bar a {
+  color: rgba(255,255,255,.65);
+  transition: color .2s var(--ease);
+}
 .footer__bar a:hover { color: #fff; }
 
-@media (max-width: 980px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) { .footer__grid { grid-template-columns: 1fr; } }
+@media (max-width: 980px) {
+  .footer__grid { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+  .footer__brand { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .footer__grid { grid-template-columns: 1fr; }
+  .footer__brand { grid-column: auto; }
+  .footer__banner-line { font-size: 22px; }
+}
 
 /* ============================================================
    REVEAL ANIMATION
