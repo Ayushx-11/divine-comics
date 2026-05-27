@@ -37,14 +37,7 @@
     );
   }
 
-  // Nav behaviour: hide on scroll-down, show on scroll-up
-  // + switch is-dark off when out of dark hero (so light sections get dark nav text)
-  const heroEl = document.querySelector('.hero, .page-hero');
-  let heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight - 80 : 0;
-  window.addEventListener('resize', () => {
-    if (heroEl) heroBottom = heroEl.offsetTop + heroEl.offsetHeight - 80;
-  });
-
+  // Nav: hide on scroll-down, show on scroll-up
   let lastY = 0;
   let ticking = false;
   window.addEventListener('scroll', () => {
@@ -52,14 +45,8 @@
     ticking = true;
     requestAnimationFrame(() => {
       const y = window.scrollY;
-      // hide / show
       if (y > 120 && y > lastY) nav.classList.add('is-hidden');
       else nav.classList.remove('is-hidden');
-      // dark when over the hero, light when past it
-      if (heroEl) {
-        if (y < heroBottom) nav.classList.add('is-dark');
-        else nav.classList.remove('is-dark');
-      }
       lastY = y;
       ticking = false;
     });
