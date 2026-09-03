@@ -861,6 +861,15 @@ button { font: inherit; }
 @media (max-width: 900px) { .peek__grid { grid-template-columns: 1fr; } }
 
 /* ============================================================
+   SYNOPSIS  (comics page)
+   ============================================================ */
+.synopsis__grid {
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: clamp(40px, 6vw, 100px); align-items: start;
+}
+@media (max-width: 900px) { .synopsis__grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
    SHOP
    ============================================================ */
 .shop { background: var(--bg); }
