@@ -25,9 +25,24 @@
   const nav = document.getElementById('nav');
   const menuBtn = document.getElementById('menuBtn');
   if (nav && menuBtn) {
+    const primaryNav = nav.querySelector('.nav__links');
+    primaryNav.id = 'primary-navigation';
+    menuBtn.setAttribute('aria-controls', 'primary-navigation');
+    const closeMenu = () => {
+      nav.classList.remove('is-open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-label', 'Open menu');
+    };
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+        closeMenu();
+        menuBtn.focus();
+      }
+    });
     menuBtn.addEventListener('click', () => {
       const open = nav.classList.toggle('is-open');
       menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
     nav.querySelectorAll('.nav__links a').forEach((a) =>
       a.addEventListener('click', () => {
@@ -74,8 +89,7 @@ function handleSubscribe(e) {
   const note = document.getElementById('formNote');
   const input = document.getElementById('email');
   if (note && input && input.value) {
-    note.textContent = `Thanks — we'll be in touch at ${input.value}.`;
-    input.value = '';
+    note.textContent = 'Email sign-up is not connected yet. Please contact contact@divinecomics.in for updates.';
   }
   return false;
 }
